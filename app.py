@@ -47,10 +47,10 @@ def render_testing():
             timeout=st.number_input("Ожидание ответа, секунд",min_value=1,max_value=300,value=60)
             st.caption("Поддерживаются локальные адреса с IP 127.0.0.1 или ::1. Пример запроса — на вкладке «Помощь».")
     run_slot=st.container()
-    suite=(st.selectbox("Набор сценариев бота",["Отдельные обращения — 20","Диалоги — 10","Сложные диалоги — 12"],key="support_suite") if mode=="Бот поддержки (учебный)" else
+    suite=(st.selectbox("Набор сценариев бота",["Отдельные обращения — 20","Диалоги — 10","Сложные диалоги — 12","Контрольные диалоги — 20"],key="support_suite") if mode=="Бот поддержки (учебный)" else
            st.selectbox("Набор сценариев",["Быстрая проверка — 3","Практические задачи — 30","Контрольные задачи — 10"],key="suite") if mode!="Демо (бесплатно)" else "Демо")
     scenario_file=("scenarios.json" if mode=="Демо (бесплатно)" else
-        ("scenarios-support-hard.json" if suite=="Сложные диалоги — 12" else "scenarios-dialogues.json" if suite=="Диалоги — 10" else "scenarios-support.json") if mode=="Бот поддержки (учебный)" else
+        ("scenarios-support-control.json" if suite=="Контрольные диалоги — 20" else "scenarios-support-hard.json" if suite=="Сложные диалоги — 12" else "scenarios-dialogues.json" if suite=="Диалоги — 10" else "scenarios-support.json") if mode=="Бот поддержки (учебный)" else
         "scenarios-practical.json" if suite=="Практические задачи — 30" else
         "scenarios-control.json" if suite=="Контрольные задачи — 10" else "scenarios-local.json")
     defaults=Path(__file__).with_name(scenario_file).read_text(encoding="utf-8")

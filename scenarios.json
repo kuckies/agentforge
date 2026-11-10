@@ -1,0 +1,5 @@
+[
+  {"id": "greeting", "prompt": "Скажи привет", "expected": "привет", "check": "substring"},
+  {"id": "arithmetic", "prompt": "Сколько будет 2+2?", "expected": "4", "check": "exact"},
+  {"id": "structured", "prompt": "Верни JSON со статусом ok", "expected": "{\"status\":\"ok\"}", "check": "json"}
+]

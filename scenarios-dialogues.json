@@ -1,0 +1,182 @@
+[
+  {
+    "id": "clarify-order",
+    "steps": [
+      {
+        "prompt": "Где мой заказ?",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "AF-1001",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1001: shipped.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      },
+      {
+        "prompt": "А трек-номер?",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер: TEST-TRACK-1001.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "bare-number",
+    "steps": [
+      {
+        "prompt": "Проверь мой заказ.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "1002",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1002: processing.\", \"order\": {\"id\": \"AF-1002\", \"status\": \"processing\", \"tracking\": null}}",
+        "check": "json"
+      },
+      {
+        "prompt": "А трек-номер?",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер пока отсутствует.\", \"order\": {\"id\": \"AF-1002\", \"status\": \"processing\", \"tracking\": null}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "change-order",
+    "steps": [
+      {
+        "prompt": "Проверь заказ AF-1001.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1001: shipped.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      },
+      {
+        "prompt": "Теперь проверь другой заказ.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "AF-1003",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1003: cancelled.\", \"order\": {\"id\": \"AF-1003\", \"status\": \"cancelled\", \"tracking\": null}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "correct-unknown",
+    "steps": [
+      {
+        "prompt": "Где заказ AF-9999?",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Заказ не найден в учебной базе. Проверьте номер или обратитесь к оператору.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "1001",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1001: shipped.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      },
+      {
+        "prompt": "А трек-номер?",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер: TEST-TRACK-1001.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "choose-one",
+    "steps": [
+      {
+        "prompt": "Проверь заказы AF-1001 и AF-1002.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Укажите один номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "AF-1002",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1002: processing.\", \"order\": {\"id\": \"AF-1002\", \"status\": \"processing\", \"tracking\": null}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "change-topic",
+    "steps": [
+      {
+        "prompt": "Где мой заказ?",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "В какое время работает поддержка?",
+        "expected": "{\"intent\": \"hours\", \"reply\": \"Учебная поддержка работает ежедневно с 10:00 до 18:00 по Новосибирску.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "1001",
+        "expected": "{\"intent\": \"unknown\", \"reply\": \"В учебной базе нет ответа на этот вопрос. Обратитесь к оператору; я не буду придумывать данные.\", \"order\": null}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "tracking-first",
+    "steps": [
+      {
+        "prompt": "Хочу узнать трек-номер посылки.",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "AF-1001",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер: TEST-TRACK-1001.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "keep-order-after-thanks",
+    "steps": [
+      {
+        "prompt": "Проверь заказ AF-1001.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1001: shipped.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      },
+      {
+        "prompt": "Спасибо!",
+        "expected": "{\"intent\": \"thanks\", \"reply\": \"Спасибо! Рады помочь.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "А трек-номер?",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер: TEST-TRACK-1001.\", \"order\": {\"id\": \"AF-1001\", \"status\": \"shipped\", \"tracking\": \"TEST-TRACK-1001\"}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "new-dialogue-is-empty",
+    "steps": [
+      {
+        "prompt": "А трек-номер?",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Укажите номер заказа в формате AF-1001.\", \"order\": null}",
+        "check": "json"
+      },
+      {
+        "prompt": "AF-1003",
+        "expected": "{\"intent\": \"tracking\", \"reply\": \"Трек-номер пока отсутствует.\", \"order\": {\"id\": \"AF-1003\", \"status\": \"cancelled\", \"tracking\": null}}",
+        "check": "json"
+      }
+    ]
+  },
+  {
+    "id": "repeat-status",
+    "steps": [
+      {
+        "prompt": "Проверь заказ AF-1002.",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1002: processing.\", \"order\": {\"id\": \"AF-1002\", \"status\": \"processing\", \"tracking\": null}}",
+        "check": "json"
+      },
+      {
+        "prompt": "Где мой заказ?",
+        "expected": "{\"intent\": \"order_status\", \"reply\": \"Учебный заказ AF-1002: processing.\", \"order\": {\"id\": \"AF-1002\", \"status\": \"processing\", \"tracking\": null}}",
+        "check": "json"
+      }
+    ]
+  }
+]

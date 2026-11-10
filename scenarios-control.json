@@ -1,0 +1,66 @@
+[
+  {
+    "id": "thanks",
+    "prompt": "Метки: tech — сбой, billing — оплата, other — остальное. Сообщение: Отличный сервис, очень вам благодарен! Верни только метку.",
+    "expected": "other",
+    "check": "exact"
+  },
+  {
+    "id": "billing",
+    "prompt": "Метки: tech — сбой, billing — оплата, other — остальное. Сообщение: Почему с меня списали деньги за продление? Верни только метку.",
+    "expected": "billing",
+    "check": "exact"
+  },
+  {
+    "id": "tech",
+    "prompt": "Метки: tech — сбой, billing — оплата, other — остальное. Сообщение: Страница входа выдаёт ошибку 500. Верни только метку.",
+    "expected": "tech",
+    "check": "exact"
+  },
+  {
+    "id": "spaces",
+    "prompt": "Верни слова кот, дом, лес через запятую без пробелов. Только результат.",
+    "expected": "кот,дом,лес",
+    "check": "exact"
+  },
+  {
+    "id": "odd",
+    "prompt": "Из чисел 2, 3, 4, 5, 6, 7 оставь нечётные в исходном порядке. Верни JSON с полем values, массивом чисел.",
+    "expected": "{\"values\":[3,5,7]}",
+    "check": "json",
+    "output_format": "json"
+  },
+  {
+    "id": "unique",
+    "prompt": "Удали дубликаты из списка m, n, m, p, n. Сохрани порядок первого появления. Верни JSON с полем values, массивом строк.",
+    "expected": "{\"values\":[\"m\",\"n\",\"p\"]}",
+    "check": "json",
+    "output_format": "json"
+  },
+  {
+    "id": "sum",
+    "prompt": "У меня 9 карандашей, я отдал 2 и получил ещё 5. Сколько стало? Только число.",
+    "expected": "12",
+    "check": "exact"
+  },
+  {
+    "id": "extract",
+    "prompt": "Верни только код заказа из текста: Ваш заказ TR-517 отправлен сегодня.",
+    "expected": "TR-517",
+    "check": "exact"
+  },
+  {
+    "id": "missing",
+    "prompt": "В данных 'город: Омск' нет email. Верни только JSON с полем email и значением null.",
+    "expected": "{\"email\":null}",
+    "check": "json",
+    "output_format": "json"
+  },
+  {
+    "id": "types",
+    "prompt": "Верни только JSON: поле enabled равно false, поле count равно 2. Никаких других полей.",
+    "expected": "{\"enabled\":false,\"count\":2}",
+    "check": "json",
+    "output_format": "json"
+  }
+]

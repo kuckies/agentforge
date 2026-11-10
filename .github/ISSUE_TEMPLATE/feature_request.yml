@@ -1,0 +1,20 @@
+name: Предложение
+description: Идея улучшения
+title: "[Идея] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Какую задачу сейчас трудно выполнить?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Предлагаемое поведение
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Пример использования

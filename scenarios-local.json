@@ -1,0 +1,5 @@
+[
+  {"id": "greeting", "prompt": "Напиши только одно слово: Привет", "expected": "Привет", "check": "substring"},
+  {"id": "arithmetic", "prompt": "Сколько будет 2+2? Ответь только одной цифрой, без пояснений.", "expected": "4", "check": "exact"},
+  {"id": "structured", "prompt": "Ответь только JSON-объектом с единственным полем status и значением ok. Не используй Markdown.", "expected": "{\"status\":\"ok\"}", "check": "json", "output_format": "json"}
+]

@@ -13,6 +13,16 @@ from support_bot import SupportBot, make_server, REPLIES
 
 
 class SupportBotTests(unittest.TestCase):
+    def test_hard_dialogues_are_selectable_without_model(self):
+        app=AppTest.from_file(str(Path(__file__).with_name('app.py'))).run(timeout=30)
+        app.selectbox[0].select('Бот поддержки (учебный)').run()
+        app.selectbox(key='support_suite').select('Сложные диалоги — 12').run()
+        self.assertFalse(app.exception)
+        cases=json.loads(app.session_state['scenarios'])
+        self.assertEqual(len(cases),12)
+        self.assertEqual(sum(len(c['steps']) for c in cases),32)
+        self.assertEqual(len({c['id'] for c in cases}),12)
+
     def test_orders_are_read_from_database(self):
         bot = SupportBot(lambda message, **kwargs: '{"intent":"order_status"}')
         self.assertEqual(bot.respond("заказ af-1002")["order"]["status"], "processing")
@@ -57,7 +67,7 @@ class SupportBotTests(unittest.TestCase):
                 caught.exception.close()
                 agent = SupportHTTPAgent(base + "/v1/chat/completions")
                 self.assertEqual(json.loads(agent("Спасибо"))["reply"], REPLIES["thanks"])
-                self.assertEqual(agent.metadata()["server"]["policy_version"], "support-v2")
+                self.assertEqual(agent.metadata()["server"]["policy_version"], "support-v3")
                 app = AppTest.from_file(str(Path(__file__).with_name("app.py"))).run(timeout=30)
                 app.selectbox[0].select("Бот поддержки (учебный)").run()
                 app.text_input(key="support_endpoint").set_value(base + "/v1/chat/completions")

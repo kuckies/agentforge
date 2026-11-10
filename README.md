@@ -4,6 +4,8 @@
 
 Local Windows app for testing AI agents and comparing models or instructions. Includes JSON scenarios, conversation tests, SQLite history, and a free offline demo.
 
+[Пример ForgeShop: сложные диалоги улучшены с 8/12 до 12/12](docs/FORGESHOP-CASE.md). В интерфейсе: «Бот поддержки (учебный)» → «Сложные диалоги — 12».
+
 ## Начать
 
 На подготовленном компьютере дважды щёлкните **Start.cmd**. В браузере откроется http://127.0.0.1:8501.

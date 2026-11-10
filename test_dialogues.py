@@ -15,6 +15,26 @@ def classifier(message, **kwargs):
 
 
 class DialogueTests(unittest.TestCase):
+    def test_forgetting_clears_order_and_pending_intent(self):
+        def route(message, **kwargs):
+            return json.dumps({'intent':{'forget':'forget_order','track':'tracking'}.get(message,'order_status')})
+        bot=SupportBot(route)
+        sid=bot.chat('AF-1001')['session_id']
+        self.assertEqual(bot.chat('forget',sid)['intent'],'forget_order')
+        self.assertIsNone(bot.chat('track',sid)['order'])
+        bot.chat('forget',sid)
+        self.assertEqual(bot.chat('1001',sid)['intent'],'unknown')
+
+    def test_other_parcel_does_not_reuse_previous_order(self):
+        bot=SupportBot(lambda *args,**kwargs:'{"intent":"tracking"}')
+        for message in ('Трек-номер другой посылки', 'Трек нового отправления', 'Трек другого заказа'):
+            with self.subTest(message=message):
+                sid=bot.chat('AF-1001')['session_id']
+                self.assertIsNone(bot.chat(message,sid)['order'])
+                self.assertEqual(bot.chat('1002',sid)['order']['id'],'AF-1002')
+        sid=bot.chat('AF-1001')['session_id']
+        self.assertEqual(bot.chat('Трек другой посылки AF-1002',sid)['order']['id'],'AF-1002')
+
     def test_memory_isolation_and_reset(self):
         bot=SupportBot(classifier)
         first=bot.chat("order")

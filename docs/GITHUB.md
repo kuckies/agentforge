@@ -11,7 +11,7 @@
 - .gitignore исключает пользовательскую историю, окружение, журналы, файлы моделей и .env.
 - .gitattributes задаёт переносы строк для Python и Windows CMD.
 
-Действия checkout и setup-python закреплены за конкретными коммитами официальных репозиториев; версии указаны в комментариях workflow. Источники: [actions/checkout](https://github.com/actions/checkout), [actions/setup-python](https://github.com/actions/setup-python).
+Действия checkout и setup-python закреплены за конкретными коммитами официальных репозиториев; версии указаны в комментариях workflow. Источники: [actions/checkout](https://github.com/actions/checkout), [actions/setup-python](https://github.com/actions/setup-python). Синтаксис workflow проверяется утилитой actionlint; в командах с двоеточиями используются кавычки YAML.
 
 ## Автор и подключение
 

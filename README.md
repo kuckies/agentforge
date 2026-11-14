@@ -6,7 +6,7 @@ Local Windows app for testing AI agents and comparing models or instructions. In
 
 [Пример ForgeShop: сложные диалоги улучшены с 8/12 до 12/12](docs/FORGESHOP-CASE.md). В интерфейсе: «Бот поддержки (учебный)» → «Сложные диалоги — 12».
 
-[Новая контрольная проверка support-v3: 14/20 диалогов, найденные ограничения и план исправлений](docs/SUPPORT-CONTROL.md). В интерфейсе: «Контрольные диалоги — 20». Бот при этой проверке не изменялся.
+[Контрольные диалоги ForgeShop выросли с 14/20 на support-v3 до 20/20 на support-v4](docs/SUPPORT-CONTROL.md). В интерфейсе выберите «Контрольные диалоги — 20».
 
 ## Начать
 

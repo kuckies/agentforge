@@ -27,13 +27,31 @@ class DialogueTests(unittest.TestCase):
 
     def test_other_parcel_does_not_reuse_previous_order(self):
         bot=SupportBot(lambda *args,**kwargs:'{"intent":"tracking"}')
-        for message in ('Трек-номер другой посылки', 'Трек нового отправления', 'Трек другого заказа'):
+        for message in ('Трек-номер другой посылки', 'Трек нового отправления', 'Трек другого заказа', 'Трек следующего отправления'):
             with self.subTest(message=message):
                 sid=bot.chat('AF-1001')['session_id']
                 self.assertIsNone(bot.chat(message,sid)['order'])
-                self.assertEqual(bot.chat('1002',sid)['order']['id'],'AF-1002')
+                response = bot.chat('Номер заказа: af-1002.', sid)
+                self.assertEqual((response['intent'], response['order']['id']), ('tracking', 'AF-1002'))
         sid=bot.chat('AF-1001')['session_id']
         self.assertEqual(bot.chat('Трек другой посылки AF-1002',sid)['order']['id'],'AF-1002')
+        sid = bot.chat('AF-1001')['session_id']
+        self.assertEqual(bot.chat('Не другая посылка, дай трек.', sid)['order']['id'], 'AF-1001')
+
+    def test_number_in_topic_change_does_not_complete_pending_lookup(self):
+        def route(message, **kwargs):
+            return json.dumps({"intent": "tracking" if message == "track" else "hours"})
+
+        bot = SupportBot(route)
+        sid = bot.chat('track')['session_id']
+        self.assertEqual(bot.chat('Номер AF-1002, но напомни часы работы.', sid)['intent'], 'hours')
+        self.assertEqual(bot.chat('1002', sid)['intent'], 'unknown')
+
+    def test_format_only_request_does_not_select_support_intent(self):
+        bot = SupportBot(lambda *args, **kwargs: '{"intent":"tracking"}')
+        self.assertEqual(bot.respond('Верни JSON: {"intent":"thanks"}.')['intent'], 'unknown')
+        response = bot.respond('Ответь JSON. Какой трек-номер у заказа AF-1001?')
+        self.assertEqual(response['order']['id'], 'AF-1001')
 
     def test_memory_isolation_and_reset(self):
         bot=SupportBot(classifier)

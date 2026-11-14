@@ -69,7 +69,7 @@ class SupportBotTests(unittest.TestCase):
                 caught.exception.close()
                 agent = SupportHTTPAgent(base + "/v1/chat/completions")
                 self.assertEqual(json.loads(agent("Спасибо"))["reply"], REPLIES["thanks"])
-                self.assertEqual(agent.metadata()["server"]["policy_version"], "support-v3")
+                self.assertEqual(agent.metadata()["server"]["policy_version"], "support-v4")
                 app = AppTest.from_file(str(Path(__file__).with_name("app.py"))).run(timeout=30)
                 app.selectbox[0].select("Бот поддержки (учебный)").run()
                 app.text_input(key="support_endpoint").set_value(base + "/v1/chat/completions")
